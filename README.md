@@ -1,21 +1,21 @@
-# *EO_VIP*
+# EO_VIP
 
-## **DESCRIPTION**
+## DESCRIPTION
 This is a project started in the 1th September 2016, It's an ongoing project, which would provide new features every update,
 This is a VIP based system filerscript, which would focus on granting you an ideal VIP system, and the less complicated overall previous on INSTALLATION
-1- copy E_O_VIP inside of (Filterscripts)
-2- copy all content from (pawno/include) and (pawno/includes)
-3- copy all plugins inside of your plugin folder, and add this on your "server.cfg": plugins sscanf whirlpool
-4- copy "sscanf" folder to your server folder directory
-5- go to your "server.cfg" and add : E_O_VIP on "Filterscript" line
+* 1- copy E_O_VIP inside of (Filterscripts)
+* 2- copy all content from (pawno/include) and (pawno/includes)
+* 3- copy all plugins inside of your plugin folder, and add this on your "server.cfg": plugins sscanf whirlpool
+* 4- copy "sscanf" folder to your server folder directory
+* 5- go to your "server.cfg" and add : E_O_VIP on "Filterscript" line
 
 
 
 
 ## Features
-Converted from INI to SQLite
-New RCON admin command /vipcount
-Many bug fixes
++ Converted from INI to SQLite
++ New RCON admin command /vipcount
++ Many bug fixes
 
 
 ## Update Log
