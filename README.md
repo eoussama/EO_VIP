@@ -12,11 +12,11 @@ This is a VIP based system filerscript, which would focus on granting you an ide
 
 
 
-## Features
+```## Features
 + Converted from INI to SQLite
 + New RCON admin command /vipcount
 + Many bug fixes
-
+```
 
 ## Update Log
 
@@ -104,8 +104,7 @@ armour at spawn for lvl 3 and 4 (40% and 100%)
 
 ### Version 0.1(5/10/2016)===============================
 4 different VIP levels (1-Silver/2-Gold/3-Platinum/4-Diamond)
-Strong and secure DATA saving system with YSI\y_less
-a VIP chat
+Strong and secure DATA saving system with YSI\y_less a VIP chat
 =====================================================
 
 # COPYRIGHT CLAIM
