@@ -1,4 +1,4 @@
-# EO_VIP**9
+# EO_VIP
 
 ## DESCRIPTION
 This is a project started in the 1th September 2016, It's an ongoing project, which would provide new features every update,
