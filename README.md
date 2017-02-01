@@ -1,8 +1,8 @@
-# EO_VIP
+# *EO_VIP*
 
-## DESCRIPTION
+## **DESCRIPTION**
 This is a project started in the 1th September 2016, It's an ongoing project, which would provide new features every update,
-This is a VIP based system filerscript, which would focus on granting you an ideal VIP system, and the less complicated overall previous onINSTALLATION
+This is a VIP based system filerscript, which would focus on granting you an ideal VIP system, and the less complicated overall previous on INSTALLATION
 1- copy E_O_VIP inside of (Filterscripts)
 2- copy all content from (pawno/include) and (pawno/includes)
 3- copy all plugins inside of your plugin folder, and add this on your "server.cfg": plugins sscanf whirlpool
