@@ -19,8 +19,8 @@ This is a VIP based system filerscript, which would focus on granting you an ide
 
 
 ## Update Log
-
-### Version 1.0(13/10/1026)================================```
+```
+ Version 1.0(13/10/1026)================================
 organize the vipcmds
 game text for player when demoted/promoted
 string extended
@@ -30,9 +30,8 @@ weather id dialog shows only availabe level weather ids
 level 4 can load any weapon preset
 vipacc yes/no bug
 toys(objects)
-``````
 
-### Version 1.0(11/10/1026)================================```
+ Version 1.0(11/10/1026)================================
 /vipbtp for level 4
 /vipcmds updated
 /viphelp updated
@@ -51,9 +50,8 @@ advertising to VIP STATS VIA A TO ALL MESG
 vipacc Account type bug/optimization
 change skin
 /vips turned into dialog based cmd(need to test)
-``````
 
-### Version 0.8(9/10/1026)================================```
+ Version 0.8(9/10/1026)================================
 script optimizastion
 vip gate auto close
 Gate make noice when operating
@@ -68,9 +66,8 @@ cars set to 37 cars
 /vipefix fix a vehicle's engine
 /vehicle flip a vehicle
 /vipbfix vehicle body fix
-``````
 
-### Version 0.5(8/10/1026)================================```
+ Version 0.5(8/10/1026)================================
 vip car color set to yellow
 vip cars reject non vip players
 vip gate (functionable)
@@ -79,9 +76,8 @@ color changing to various text colors
 disconnect data save
 timer expires in connect
 text when you get in the house
-``````
 
-### Version 0.3.5(7/10/2016)===============================```
+ Version 0.3.5(7/10/2016)===============================
 Added /vipacc command - Displays extra info about one's VIP level (Rank, Account type, registration date, days left...)
 Added /carc command - Changed vehicle color (only for VIP level 2, 3 and 4)
 /vipcmd is updated
@@ -97,22 +93,20 @@ Bug Fixes
 Console printf bug fixed
 VIP Lounge walls and lot was specified and partly mapped(work wtill in process)
 3D label included
-``````
 
-### Version 0.2(6/10/2016)===============================```
+ Version 0.2(6/10/2016)===============================
 /vipcmd - displays a usefull collection of commands related to your VIP level
 /viphelp - additional information about your VIP leve; e.g(features)
 /vips - list of connected VIPs
 spawn Client message bug fix
 armour at spawn for lvl 3 and 4 (40% and 100%)
-``````
 
-### Version 0.1(5/10/2016)===============================```
+ Version 0.1(5/10/2016)===============================
 4 different VIP levels (1-Silver/2-Gold/3-Platinum/4-Diamond)
 Strong and secure DATA saving system with YSI\y_less a VIP chat
-``````
-=====================================================
 
+=====================================================
+```
 # COPYRIGHT CLAIM
 This project is under work, which means I would not be any forgiving with anyone who tries to copy the code or upload it on other websites without my permission
 
