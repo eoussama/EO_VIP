@@ -3,23 +3,35 @@
 ## DESCRIPTION
 This is a project started in the 1th September 2016, It's an ongoing project, which would provide new features every update,
 This is a VIP based system filerscript, which would focus on granting you an ideal VIP system, and the less complicated overall previous on INSTALLATION
-* 1- copy E_O_VIP inside of (Filterscripts)
-* 2- copy all content from (pawno/include) and (pawno/includes)
-* 3- copy all plugins inside of your plugin folder, and add this on your "server.cfg": plugins sscanf whirlpool
-* 4- copy "sscanf" folder to your server folder directory
-* 5- go to your "server.cfg" and add : E_O_VIP on "Filterscript" line
+* 1- put EOVIP inside of your filterscript folder
+* 2- put eovip.inc inside of pawno/Include folder
+* 3- open the EOVIP.pwn with your text editor and compile it
+* 4- go to your "server.cfg" and add : 'EOVIP' (without quotations) on "Filterscript" line
 
-
-
+## Credits
+* a_samp		      by **SA_MP team**
+* a_mysql			    by **BlueG**			>	github.com/pBlueG/SA-MP-MySQL/releases/tag/R41-2
+* streamer		    by **incognito**			>	github.com/samp-incognito/samp-streamer-plugin/releases/tag/v2.9.1
+* sscanf2			    by **Y_Less**			>	github.com/maddinat0r/sscanf/releases/tag/v2.8.2
+* iZCMD			      by **Zeex and Yashas** 		>	github.com/YashasSamaga/I-ZCMD
+* YSI\y_timers		by **Y_Less and Misiur**		>	github.com/Misiur/YSI
+* eovip			      by **Oussama**
 
 ## Features
-+ Converted from INI to SQLite
-+ New RCON admin command /vipcount
-+ Many bug fixes
-
++ VIP Expiration is more solid
++ re-Added VIP Toys
++ Manu bug fixes
 
 ## Update Log
 ```
+Version 1.7(10/7/2017)================================
+Converted to MySQL
+
+Version 1.6(30/1/2017)================================
+Converted from INI to SQLite
+New RCON admin command /vipcount
+Many bug fixes
+
  Version 1.0(13/10/1026)================================
 organize the vipcmds
 game text for player when demoted/promoted
@@ -111,5 +123,5 @@ Strong and secure DATA saving system with YSI\y_less a VIP chat
 This project is under work, which means I would not be any forgiving with anyone who tries to copy the code or upload it on other websites without my permission
 
 # Using terms
-If you consider using this filerscript on your sever or edit it for any reason, you MUST credit me,
+If you consider using this filerscript on your sever or edit it for any reason, you MUST all contributers,
 please do not ignore this!
