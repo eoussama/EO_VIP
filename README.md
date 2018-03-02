@@ -3,8 +3,9 @@
 
 ## DESCRIPTION
 This is a project started in the 1th September 2016, It's an ongoing project, which would provide new features every update,
-This is a VIP based system filerscript, which would focus on granting you an ideal VIP system, and the less complicated overall previous on INSTALLATION
+This is a VIP based system filerscript, which would focus on granting you an ideal VIP system, and the less complicated overall previous on.
 
+## INSTALLATION
 - **1** put **EOVIP.pwn** inside of your *filterscripts* folder.
 - **2** put **eovip.inc** inside of *pawno/include* folder.
 - **3** open the EOVIP.pwn with your text editor and compile it.
@@ -12,11 +13,17 @@ This is a VIP based system filerscript, which would focus on granting you an ide
 
 ## Credits
 > a_samp		      by **SA_MP team**
+
 > a_mysql			    by **BlueG**			>	github.com/pBlueG/SA-MP-MySQL/releases/tag/R41-2
+
 > streamer		    by **incognito**			>	github.com/samp-incognito/samp-streamer-plugin/releases/tag/v2.9.1
+
 > sscanf2			    by **Y_Less**			>	github.com/maddinat0r/sscanf/releases/tag/v2.8.2
+
 > iZCMD			      by **Zeex and Yashas** 		>	github.com/YashasSamaga/I-ZCMD
+
 > YSI\y_timers		by **Y_Less and Misiur**		>	github.com/Misiur/YSI
+
 > eovip			      by **Oussama**
 
 ## Features
