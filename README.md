@@ -1,29 +1,36 @@
 # EO_VIP
+---
 
 ## DESCRIPTION
 This is a project started in the 1th September 2016, It's an ongoing project, which would provide new features every update,
 This is a VIP based system filerscript, which would focus on granting you an ideal VIP system, and the less complicated overall previous on INSTALLATION
-* 1- put EOVIP inside of your filterscript folder
-* 2- put eovip.inc inside of pawno/Include folder
-* 3- open the EOVIP.pwn with your text editor and compile it
-* 4- go to your "server.cfg" and add : 'EOVIP' (without quotations) on "Filterscript" line
+
+- **1** put **EOVIP.pwn** inside of your *filterscripts* folder.
+- **2** put **eovip.inc** inside of *pawno/include* folder.
+- **3** open the EOVIP.pwn with your text editor and compile it.
+- **4** go to your **server.cfg** and add : `EOVIP` on *filterscripts* line.
 
 ## Credits
-* a_samp		      by **SA_MP team**
-* a_mysql			    by **BlueG**			>	github.com/pBlueG/SA-MP-MySQL/releases/tag/R41-2
-* streamer		    by **incognito**			>	github.com/samp-incognito/samp-streamer-plugin/releases/tag/v2.9.1
-* sscanf2			    by **Y_Less**			>	github.com/maddinat0r/sscanf/releases/tag/v2.8.2
-* iZCMD			      by **Zeex and Yashas** 		>	github.com/YashasSamaga/I-ZCMD
-* YSI\y_timers		by **Y_Less and Misiur**		>	github.com/Misiur/YSI
-* eovip			      by **Oussama**
+> a_samp		      by **SA_MP team**
+> a_mysql			    by **BlueG**			>	github.com/pBlueG/SA-MP-MySQL/releases/tag/R41-2
+> streamer		    by **incognito**			>	github.com/samp-incognito/samp-streamer-plugin/releases/tag/v2.9.1
+> sscanf2			    by **Y_Less**			>	github.com/maddinat0r/sscanf/releases/tag/v2.8.2
+> iZCMD			      by **Zeex and Yashas** 		>	github.com/YashasSamaga/I-ZCMD
+> YSI\y_timers		by **Y_Less and Misiur**		>	github.com/Misiur/YSI
+> eovip			      by **Oussama**
 
 ## Features
-+ VIP Expiration is more solid
-+ re-Added VIP Toys
-+ Manu bug fixes
+- [X] VIP Expiration is even more solid.
+- [X] Code optimization.
+- [X] More control over the filterscript.
 
 ## Update Log
 ```
+Version 1.8(13/7/2017)================================
+VIP Expiration is more solid
+re-Added VIP Toys
+Menu bug fixes
+
 Version 1.7(10/7/2017)================================
 Converted to MySQL
 
@@ -119,9 +126,7 @@ Strong and secure DATA saving system with YSI\y_less a VIP chat
 
 =====================================================
 ```
-# COPYRIGHT CLAIM
-This project is under work, which means I would not be any forgiving with anyone who tries to copy the code or upload it on other websites without my permission
 
-# Using terms
+## Using terms
 If you consider using this filerscript on your sever or edit it for any reason, you MUST all contributers,
 please do not ignore this!
