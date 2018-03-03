@@ -37,7 +37,7 @@ native bool:isVIPInLoungue(playerid);
 
 native TogglePlayerVIPTag(playerid, bool:param);
 
-native SendClientMessageToVIPs(const message[], color, exceptions[] = 0, minLvl = EOVIP_VIPLEVEL_1, maxLvl = EOVIP_VIPLEVEL_4);
+native SendClientMessageToVIPs(const message[], color, exception = INVALID_PLAYER_ID, minLvl = EOVIP_VIPLEVEL_1, maxLvl = EOVIP_VIPLEVEL_4);
 
 native ResetVIPData(playerid);
 
@@ -63,8 +63,6 @@ native PlaySoundForAll(soundid, Float:posX, Float:posY, Float:posZ);
 
 native StopSoundForAll();
 
-native bool:isException(playerid, exceptions[]);
-
 ============================================================================================================================================================
 ==========================================================================================================================================================*/
 
@@ -80,6 +78,19 @@ native bool:isException(playerid, exceptions[]);
 #define EOVIP_VIPNAME_2				"Gold"
 #define EOVIP_VIPNAME_3				"Platinum"
 #define EOVIP_VIPNAME_4				"Diamond"
+
+#define EOVIP_CCOLOR_FEE_2			1000		// The fee for changing the vehicle's color for VIP level 2.
+#define EOVIP_CCOLOR_FEE_3			500			// The fee for changing the vehicle's color for VIP level 3.
+#define EOVIP_CCOLOR_FEE_4			250			// The fee for changing the vehicle's color for VIP level 4.
+
+#define EOVIP_CNOS_FEE_2			1000		// The fee for adding nitros to vehicles for VIP level 2.
+#define EOVIP_CNOS_FEE_3			500			// The fee for adding nitros to vehicles for VIP level 3.
+#define EOVIP_CNOS_FEE_4			250			// The fee for adding nitros to vehicles for VIP level 4.
+	
+#define EOVIP_CEFIX_FEE_3			500			// The fee for fixing the vehicle's engine for VIP level 3.
+#define EOVIP_CEFIX_FEE_4			250			// The fee for fixing the vehicle's engine for VIP level 4.
+
+#define EOVIP_CBFIX_FEE				450			// The fee for fixing vehicles' bodies.
 
 //**Variables--------------------------------------------------------------------------------------------------------------------------------
 new gVIPVehicles[38];
@@ -256,35 +267,12 @@ ToggleVIPGates(bool:action)
 
 bool:isVIPGateOpened() return VIPGate[e_IsGateOpened];
 
-bool:isException(playerid, exceptions[])
+SendClientMessageToVIPs(const message[], color, exception = INVALID_PLAYER_ID, minLvl = EOVIP_VIPLEVEL_1, maxLvl = EOVIP_VIPLEVEL_4)
 {
-	for(new i = 0, j = strlen(exceptions); i<j; i++)
+	foreach(new i : VIP)
 	{
-		if(exceptions[i] == playerid)
-			return true;
-	}
-
-	return false;
-}
-
-SendClientMessageToVIPs(const message[], color, exceptions[] = 0, minLvl = EOVIP_VIPLEVEL_1, maxLvl = EOVIP_VIPLEVEL_4)
-{
-	if(!strlen(exceptions))
-	{
-		foreach(new i : VIP)
-		{
-			if(VIPInfo[i][e_VIPLevel] >= minLvl && VIPInfo[i][e_VIPLevel] <= maxLvl)
-				SendClientMessage(i, color, message);
-		}
-	}
-
-	else
-	{
-		foreach(new i : VIP)
-		{
-			if(VIPInfo[i][e_VIPLevel] >= minLvl && VIPInfo[i][e_VIPLevel] <= maxLvl && !isException(i, exceptions))
-					SendClientMessage(i, color, message);
-		}
+		if(VIPInfo[i][e_VIPLevel] >= minLvl && VIPInfo[i][e_VIPLevel] <= maxLvl && exception != i)
+			SendClientMessage(i, color, message);
 	}
 }
 
