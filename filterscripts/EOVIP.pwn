@@ -366,7 +366,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			foreach(new i : VIP)
 			{
 				if(isPlayerVIP(i) && isVIPInLoungue(playerid))
-					SendClientMessage(i, VIPCOLOR_ORANGE, message);
+					SendClientMessageToVIPs(message, VIPCOLOR_ORANGE, playerid);
 			}
         }
 
@@ -383,7 +383,7 @@ public OnPlayerKeyStateChange(playerid, newkeys, oldkeys)
 			foreach(new i : VIP)
 			{
 				if(isPlayerVIP(i) && isVIPInLoungue(playerid))
-					SendClientMessage(i, VIPCOLOR_ORANGE, message);
+					SendClientMessageToVIPs(message, VIPCOLOR_ORANGE, playerid);
 			}
         }
 	}
@@ -395,9 +395,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
 	switch(dialogid)
 	{
-		case DIALOG_VIPSKINS:{
+		case DIALOG_VIPSKINS:
+		{
 			if(!response) return 0;
-			switch(listitem){
+
+			switch(listitem)
+			{
 				case 0: SetPlayerSkin(playerid, 2), SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"You have changed your skin to "VIPCOL_WHITE"Maccer");
 				case 1: SetPlayerSkin(playerid, 3), SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"You have changed your skin to "VIPCOL_WHITE"Andre");
 				case 2: SetPlayerSkin(playerid, 12), SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"You have changed your skin to "VIPCOL_WHITE"Rich Woman");
@@ -411,41 +414,56 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 		}
 
-		case DIALOG_VIPBASESPAWN:{
+		case DIALOG_VIPBASESPAWN:
+		{
 			if(!response) return 0;
-			if(!VIPInfo[playerid][e_VIPBaseSpawn]){
+
+			if(!VIPInfo[playerid][e_VIPBaseSpawn])
+			{
 				VIPInfo[playerid][e_VIPBaseSpawn] = true;
 				SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"Your spawn position was set to the VIP Base!");
 			}
-			else{
+
+			else
+			{
 				VIPInfo[playerid][e_VIPBaseSpawn] = false;
 				SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"You will not spawn on the VIP Base the next time!");
 			}
 		}
 
-		case DIALOG_VIPGPPRESETCREATE:{
+		case DIALOG_VIPGPPRESETCREATE:
+		{
 			if(!response) return 0;
+
 			ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel");
 		}
-		case DIALOG_PRESETGUNLIST:{
+
+		case DIALOG_PRESETGUNLIST:
+		{
 			if(!response) return SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have canceled Gunpack preset creation!");
-			switch(listitem){
+
+			switch(listitem)
+			{
 				case 0: ShowPlayerDialog(playerid, DIALOG_GUNLISTMELEE, DIALOG_STYLE_LIST, "Weapon List - Melee", "Knife\nBaseball Bat\nNightStick\nDildo\nGolf Club\nShovel\nKatana", "Select", "Cancel");
 				case 1: ShowPlayerDialog(playerid, DIALOG_GUNLISTPISTOL, DIALOG_STYLE_LIST, "Weapon List - Pistol", "9mm Pistol\nSilenced Pistol\nDeagle", "Select", "Cancel");
 				case 2: ShowPlayerDialog(playerid, DIALOG_GUNLISTSHOTGUN, DIALOG_STYLE_LIST, "Weapon List - Shotgun", "Shotgun\nCombat Shotgun\nSwan-off Shotgun", "Select", "Cancel");
 				case 3: ShowPlayerDialog(playerid, DIALOG_GUNLISTSUBMACHINE, DIALOG_STYLE_LIST, "Weapon List - SubMachine", "MP5\nTec-9\nMicro UZI", "Select", "Cancel");
 				case 4: ShowPlayerDialog(playerid, DIALOG_GUNLISTASSAULT, DIALOG_STYLE_LIST, "Weapon List - Assault", "M4\nAK-47", "Select", "Cancel");
 				case 5: ShowPlayerDialog(playerid, DIALOG_GUNLISTRIFLE, DIALOG_STYLE_LIST, "Weapon List - Rifle", "Country Rifle\nSniper Rifle", "Select", "Cancel");
-				case 6:{
+				case 6:
+				{
 					VIPInfo[playerid][e_VIPGunPackPreset] = true;
 					SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"You have saved your Gunpack preset, next time you use /vipgunpack you will spawn your Gunpack preset!");
 				}
 			}
 		}
 
-		case DIALOG_GUNLISTMELEE:{
+		case DIALOG_GUNLISTMELEE:
+		{
 			if(!response) return ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel"); 
-			switch(listitem){
+			
+			switch(listitem)
+			{
 				case 0: VIPInfo[playerid][e_VIPGPMelee] = 4, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"Knife\"");
 				case 1: VIPInfo[playerid][e_VIPGPMelee] = 5, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"Baseball Bat\"");
 				case 2: VIPInfo[playerid][e_VIPGPMelee] = 3, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"NightStick\"");
@@ -454,72 +472,92 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				case 5: VIPInfo[playerid][e_VIPGPMelee] = 6, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"Shovel\"");
 				case 6: VIPInfo[playerid][e_VIPGPMelee] = 8, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"Katana\"");
 			}
+
 			ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel");
 		}
 
-		case DIALOG_GUNLISTPISTOL:{
+		case DIALOG_GUNLISTPISTOL:
+		{
 			if(!response) return ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel"); 
-			switch(listitem){
+			
+			switch(listitem)
+			{
 				case 0: VIPInfo[playerid][e_VIPGPPistol] = 22, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"9mm Pistol\"");
 				case 1: VIPInfo[playerid][e_VIPGPPistol] = 23, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"Silenced Pistol\"");
 				case 2: VIPInfo[playerid][e_VIPGPPistol] = 24, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"Deagle\"");
-
 			}
+
 			ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel");
 		}
 
-		case DIALOG_GUNLISTSHOTGUN:{
+		case DIALOG_GUNLISTSHOTGUN:
+		{
 			if(!response) return ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel"); 
-			switch(listitem){
+			
+			switch(listitem)
+			{
 				case 0: VIPInfo[playerid][e_VIPGPShotgun] = 25, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"Shotgun\"");
 				case 1: VIPInfo[playerid][e_VIPGPShotgun] = 27, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"Combat Shotgun\"");
 				case 2: VIPInfo[playerid][e_VIPGPShotgun] = 26, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"Swan-off Shotgun\"");
-
 			}
+
 			ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel");
 		}
 
-		case DIALOG_GUNLISTSUBMACHINE:{
+		case DIALOG_GUNLISTSUBMACHINE:
+		{
 			if(!response) return ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel"); 
-			switch(listitem){
+			switch(listitem)
+			{
 				case 0: VIPInfo[playerid][e_VIPGPSubMachine] = 29, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"MP5\"");
 				case 1: VIPInfo[playerid][e_VIPGPSubMachine] = 32, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"Tec-9\"");
 				case 2: VIPInfo[playerid][e_VIPGPSubMachine] = 28, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"Micro UZI\"");
-
 			}
+
 			ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel");
 		}
 
-		case DIALOG_GUNLISTASSAULT:{
+		case DIALOG_GUNLISTASSAULT:
+		{
 			if(!response) return ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel"); 
-			switch(listitem){
+			
+			switch(listitem)
+			{
 				case 0: VIPInfo[playerid][e_VIPGPAssault] = 31, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"M4\"");
 				case 1: VIPInfo[playerid][e_VIPGPAssault] = 30, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"AK-47\"");
-
 			}
+
 			ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel");
 		}
 
-		case DIALOG_GUNLISTRIFLE:{
+		case DIALOG_GUNLISTRIFLE:
+		{
 			if(!response) return ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel"); 
-			switch(listitem){
+			
+			switch(listitem)
+			{
 				case 0: VIPInfo[playerid][e_VIPGPRifle] = 33, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"Country Rifle\"");
 				case 1: VIPInfo[playerid][e_VIPGPRifle] = 34, SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have selected \"Sniper Rifle\"");
-
 			}
+
 			ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel");
 		}
 
-		case DIALOG_VIPGPPRESETEDIT:{
+		case DIALOG_VIPGPPRESETEDIT:
+		{
 			if(!response) return 0;
-			switch(listitem){
+
+			switch(listitem)
+			{
 				case 0: ShowPlayerDialog(playerid, DIALOG_PRESETGUNLIST, DIALOG_STYLE_LIST, "VIP Gunpack Preset - Weapon List", "Melee\nPistol\nShotgun\nSubMachine\nAssault\nRifle\nSave Gunpack Preset", "Select", "Cancel");
 				case 1: ShowPlayerDialog(playerid, DIALOG_VIPGPPRESETDELETE, DIALOG_STYLE_MSGBOX, "VIP Gunpack Preset", "Are you sure you want to delete your Gunpack preset?\n"VIPCOL_YELLOW"you can create another one anytime via "VIPCOL_WHITE"/vipgppreset", "Yes", "No");
 			}
 		}
 
-		case DIALOG_VIPGPPRESETDELETE:{
+		case DIALOG_VIPGPPRESETDELETE:
+		{
 			if(!response) return 0;
+
 			VIPInfo[playerid][e_VIPGunPackPreset] = false;
 			VIPInfo[playerid][e_VIPGPMelee] = -1;
 			VIPInfo[playerid][e_VIPGPPistol] = -1;
@@ -527,35 +565,45 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			VIPInfo[playerid][e_VIPGPSubMachine] = -1;
 			VIPInfo[playerid][e_VIPGPAssault] = -1;
 			VIPInfo[playerid][e_VIPGPRifle] = -1;
+
 			SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP]: You have deleted your Gunpack preset!");
 		}
 
-		case DIALOG_TOYS:{
+		case DIALOG_TOYS:
+		{
 			if(!response) return 0;
 
 			VIPInfo[playerid][e_VIPToysIndex] = listitem;
-			if(VIPInfo[playerid][e_VIPToysSlots][listitem]){
+			if(VIPInfo[playerid][e_VIPToysSlots][listitem])
+			{
 				SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP] "VIPCOL_BLUE"Please chose an option!");
 				ShowPlayerDialog(playerid, DIALOG_TOYSMANAGE, DIALOG_STYLE_LIST, "VIP Attachments - Management", "Edit Toy\nDelete Toy", "Select", "Cancel");
 			}
-			else{
+
+			else
+			{
 				new _content[500];
-				for(new i; i<sizeof(gPlayerBone); i++){
+				for(new i; i<sizeof(gPlayerBone); i++)
 			    	format(_content, sizeof(_content), "%s%s\n" ,_content, gPlayerBone[i]);
-			    }
 
 			    SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP] "VIPCOL_BLUE"Please select a bone to stick the toy at!");
 			    ShowPlayerDialog(playerid, DIALOG_TOYSINDEX, DIALOG_STYLE_LIST, "VIP Attachments - Bone Selection", _content, "Select", "Cancel");
 			}
 		}
 
-		case DIALOG_TOYSINDEX:{
+		case DIALOG_TOYSINDEX:
+		{
 			if(!response) return 0;
+
 			new _VIPToys[300];
+
 			SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP] "VIPCOL_BLUE"Please select a toy to attach!");
+
 			for(new i; i<sizeof(gVIPToys); i++)
 				format(_VIPToys, sizeof(_VIPToys), "%s%s\n", _VIPToys, gVIPToys[i]);
-			switch(listitem){
+
+			switch(listitem)
+			{
 				case 0: ShowPlayerDialog(playerid, DIALOG_TOYSLIST, DIALOG_STYLE_LIST, "VIP Toys - Toy selection", _VIPToys, "Select", "Cancel"), VIPInfo[playerid][e_VIPSelectedBone] = 1;
 				case 1: ShowPlayerDialog(playerid, DIALOG_TOYSLIST, DIALOG_STYLE_LIST, "VIP Toys - Toy selection", _VIPToys, "Select", "Cancel"), VIPInfo[playerid][e_VIPSelectedBone] = 2;
 				case 2: ShowPlayerDialog(playerid, DIALOG_TOYSLIST, DIALOG_STYLE_LIST, "VIP Toys - Toy selection", _VIPToys, "Select", "Cancel"), VIPInfo[playerid][e_VIPSelectedBone] = 3;
@@ -577,10 +625,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			}
 		}
 
-		case DIALOG_TOYSLIST:{
+		case DIALOG_TOYSLIST:
+		{
 			if(!response) return 0;
 
-			switch(listitem){
+			switch(listitem)
+			{
 				case 0: SetPlayerAttachedObject(playerid, VIPInfo[playerid][e_VIPToysIndex], 18632, VIPInfo[playerid][e_VIPSelectedBone], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 				case 1: SetPlayerAttachedObject(playerid, VIPInfo[playerid][e_VIPToysIndex], 18633, VIPInfo[playerid][e_VIPSelectedBone], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 				case 2: SetPlayerAttachedObject(playerid, VIPInfo[playerid][e_VIPToysIndex], 18635, VIPInfo[playerid][e_VIPSelectedBone], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
@@ -604,14 +654,17 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				case 20: SetPlayerAttachedObject(playerid, VIPInfo[playerid][e_VIPToysIndex], 19066, VIPInfo[playerid][e_VIPSelectedBone], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 				case 21: SetPlayerAttachedObject(playerid, VIPInfo[playerid][e_VIPToysIndex], 19039, VIPInfo[playerid][e_VIPSelectedBone], 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 			}
+
 			SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP] "VIPCOL_BLUE"Use the X,Y,Z axes to move/rotate/expand the toy!");
 			EditAttachedObject(playerid, VIPInfo[playerid][e_VIPToysIndex]);
 		}
 
-		case DIALOG_TOYSMANAGE:{
+		case DIALOG_TOYSMANAGE:
+		{
 			if(!response) return 0;
 
-			switch(listitem){
+			switch(listitem)
+			{
 				case 0: EditAttachedObject(playerid, VIPInfo[playerid][e_VIPToysIndex]);
 				case 1: RemovePlayerAttachedObject(playerid, VIPInfo[playerid][e_VIPToysIndex]);
 			}
@@ -787,21 +840,22 @@ CMD:vips(playerid)
 }
 
 //VIP Level 1 Commands
-CMD:vipcmds(playerid) {
+CMD:vipcmds(playerid)
+{
+	new _content[1500], _header[40];
 
-	new _content[1500], _header[32];
-	switch(getVIPLevel(playerid)){
-
-		case EOVIP_VIPLEVEL_0:{
-
+	switch(getVIPLevel(playerid))
+	{
+		case EOVIP_VIPLEVEL_0:
+		{
 			strcat(_content, ""VIPCOL_ORANGE"/isvip - "VIPCOL_WHITE" View if player is a VIP\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vips - "VIPCOL_WHITE" View all online VIPs");
 
-			strcpy(_header, "VIP Level 0 [None] Commands", sizeof(_header));
+			strcpy(_header, "VIP Level 0 ["EOVIP_VIPNAME_0"] Commands", sizeof(_header));
 		}
 
-		case EOVIP_VIPLEVEL_1:{
-
+		case EOVIP_VIPLEVEL_1:
+		{
 			strcat(_content, ""VIPCOL_ORANGE"/isvip - "VIPCOL_WHITE" View if player is a VIP\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vips - "VIPCOL_WHITE" View all online VIPs\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vchat - "VIPCOL_WHITE" Chat with other VIPs\n");
@@ -809,7 +863,6 @@ CMD:vipcmds(playerid) {
 			strcat(_content, ""VIPCOL_ORANGE"/viphelp - "VIPCOL_WHITE" View VIP help panel\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vipaccount - "VIPCOL_WHITE" View you're VIP account information\n");
 			strcat(_content, ""VIPCOL_ORANGE"/viptag - "VIPCOL_WHITE" Toggle VIP tag on you\n");
-			strcat(_content, ""VIPCOL_ORANGE"/vipgunpack - "VIPCOL_WHITE" Spawn VIP gun pack\n");
 			strcat(_content, ""VIPCOL_ORANGE"/viptoys - "VIPCOL_WHITE" Manage VIP toys\n");
 			strcat(_content, ""VIPCOL_ORANGE"/viptime - "VIPCOL_WHITE" Change the time\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vipweather - "VIPCOL_WHITE" Change the weather\n");
@@ -817,10 +870,11 @@ CMD:vipcmds(playerid) {
 			strcat(_content, ""VIPCOL_ORANGE"/vipbs - "VIPCOL_WHITE" Manage VIP bane spawn\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vipvehflip - "VIPCOL_WHITE" Flip up your vehicle");
 
-			strcpy(_header, "VIP Level 1 [Silver] Commands", sizeof(_header));
+			strcpy(_header, "VIP Level 1 ["EOVIP_VIPNAME_1"] Commands", sizeof(_header));
 		}
-		case EOVIP_VIPLEVEL_2:{
 
+		case EOVIP_VIPLEVEL_2:
+		{
 			strcat(_content, ""VIPCOL_ORANGE"/isvip - "VIPCOL_WHITE" View if player is a VIP\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vips - "VIPCOL_WHITE" View all online VIPs\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vchat - "VIPCOL_WHITE" Chat with other VIPs\n");
@@ -841,10 +895,11 @@ CMD:vipcmds(playerid) {
 			strcat(_content, ""VIPCOL_ORANGE"/vipbodyfix - "VIPCOL_WHITE" Fix your vehicle's body\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vipbasetp - "VIPCOL_WHITE" Teleport to the VIP base");
 
-			strcpy(_header, "VIP Level 2 [Gold] Commands", sizeof(_header));
+			strcpy(_header, "VIP Level 2 ["EOVIP_VIPNAME_2"] Commands", sizeof(_header));
 		}
-		case EOVIP_VIPLEVEL_3:{
 
+		case EOVIP_VIPLEVEL_3:
+		{
 			strcat(_content, ""VIPCOL_ORANGE"/isvip - "VIPCOL_WHITE" View if player is a VIP\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vips - "VIPCOL_WHITE" View all online VIPs\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vchat - "VIPCOL_WHITE" Chat with other VIPs\n");
@@ -867,10 +922,11 @@ CMD:vipcmds(playerid) {
 			strcat(_content, ""VIPCOL_ORANGE"/vipgppreset - "VIPCOL_WHITE" Manage your gun pack preset\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vipskin - "VIPCOL_WHITE" Change your skin");
 
-			strcpy(_header, "VIP Level 3 [Diamond] Commands", sizeof(_header));
+			strcpy(_header, "VIP Level 3 ["EOVIP_VIPNAME_3"] Commands", sizeof(_header));
 		}
-		case EOVIP_VIPLEVEL_4:{
 
+		case EOVIP_VIPLEVEL_4:
+		{
 			strcat(_content, ""VIPCOL_ORANGE"/isvip - "VIPCOL_WHITE" View if player is a VIP\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vips - "VIPCOL_WHITE" View all online VIPs\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vchat - "VIPCOL_WHITE" Chat with other VIPs\n");
@@ -893,122 +949,239 @@ CMD:vipcmds(playerid) {
 			strcat(_content, ""VIPCOL_ORANGE"/vipgppreset - "VIPCOL_WHITE" Manage your gun pack preset\n");
 			strcat(_content, ""VIPCOL_ORANGE"/vipskin - "VIPCOL_WHITE" Change your skin");
 
-			strcpy(_header, "VIP Level 4 [Platinum] Commands", sizeof(_header));
+			strcpy(_header, "VIP Level 4 ["EOVIP_VIPNAME_4"] Commands", sizeof(_header));
 		}
 	}
+
 	ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_LIST, _header, _content, "Close", "");
 	
 	return CMD_SUCCESS;
 }
 
-CMD:vchat(playerid, params[]) {
-
+CMD:vchat(playerid, params[])
+{
 	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
-	if(isnull(params)){
-		SendClientMessage(playerid, VIPCOLOR_GREEN, "[USAGE]: /vchat [message]");
-		SendClientMessage(playerid, VIPCOLOR_GREEN, "[FUNCTION]: Chat with other VIPs");
-		return 1;
-	}
-	if(strlen(params) > 79) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: Message given is too long!");
-	new message[128];
+	if(isnull(params)) return SendClientMessage(playerid, VIPCOLOR_GREEN, "[USAGE]: /vchat [message]") && SendClientMessage(playerid, VIPCOLOR_GREEN, "[FUNCTION]: Chat with other VIPs");
+	if(strlen(params) > 85) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: Message given is too long!");
+	new message[144];
 
-	format(message, sizeof(message), "[VIP CHAT][Level %d]%s: %s", getVIPLevel(playerid), GetPlayerNameEx(playerid), params);
+	format(message, sizeof(message), "[VIP CHAT] %s: %s", GetPlayerNameEx(playerid), params);
 	SendClientMessageToVIPs(message, VIPCOLOR_BLUE);
-	return 1;
+
+	return CMD_SUCCESS;
 }
 
-CMD:vipaccount(playerid, params[]) {
+CMD:vipaccount(playerid)
+{
 	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
-	new _content[233], _query[186], _daysLeft, _acquired[15], Cache:result;
+	new _content[370], daysLeft, hoursLeft, minsLeft, acquired[11], Cache:result;
 
-	mysql_format(g_SQL, _query, sizeof(_query), "SELECT DATE(`Timestamp`) AS `Acquired`, TIMESTAMPDIFF(Day, NOW(), DATE_ADD(`Timestamp`, INTERVAL 30 DAY)) AS `daysLeft` FROM `vips` WHERE `Username` = '%e' LIMIT 1", GetPlayerNameEx(playerid));
-	result = mysql_query(g_SQL, _query);
-	cache_get_value_name(0, "Acquired", _acquired, sizeof(_acquired));
-	cache_get_value_name_int(0, "daysLeft", _daysLeft);
+	mysql_format(g_SQL, _content, sizeof(_content), "SELECT DATE(`Timestamp`) AS `Acquired`, TIMESTAMPDIFF(DAY, NOW(), DATE_ADD(`Timestamp`, INTERVAL 30 DAY)) AS `daysLeft`, TIMESTAMPDIFF(HOUR, NOW(), DATE_ADD(`Timestamp`, INTERVAL 30*24 HOUR)) AS `hoursLeft`, TIMESTAMPDIFF(MINUTE, NOW(), DATE_ADD(`Timestamp`, INTERVAL 30*24*60 MINUTE)) AS `minLeft` FROM `VIPs` WHERE `Username` = '%e' LIMIT 1;", GetPlayerNameEx(playerid));
+	result = mysql_query(g_SQL, _content);
+	cache_get_value_name(0, "Acquired", acquired, sizeof(acquired));
+	cache_get_value_name_int(0, "daysLeft", daysLeft);
+	cache_get_value_name_int(0, "hoursLeft", hoursLeft);
+	cache_get_value_name_int(0, "minLeft", minsLeft);
 	cache_delete(result);
 
-	format(_content, sizeof(_content), ""VIPCOL_WHITE"Username: "VIPCOL_YELLOW"%s\n \
-		"VIPCOL_WHITE"VIP Level: "VIPCOL_YELLOW"%d\n \
-		"VIPCOL_WHITE"Account Type: "VIPCOL_YELLOW"%s\n \
-		"VIPCOL_WHITE"VIP Acquired Date: "VIPCOL_YELLOW"%s\n \
-		"VIPCOL_WHITE"Days Left: "VIPCOL_YELLOW"%d\n \
-		"VIPCOL_WHITE"Spawn in VIP Base: "VIPCOL_YELLOW"%s",
+	format(_content, sizeof(_content), ""VIPCOL_WHITE"Username\t"VIPCOL_YELLOW"%s\n\
+		"VIPCOL_WHITE"VIP Level\t"VIPCOL_YELLOW"%d\n\
+		"VIPCOL_WHITE"Account Type\t"VIPCOL_YELLOW"%s\n\
+		"VIPCOL_WHITE"VIP set on\t"VIPCOL_YELLOW"%s\n\
+		"VIPCOL_WHITE"Time left\t"VIPCOL_YELLOW"%d\n\
+		"VIPCOL_WHITE"Spawn in VIP Base\t"VIPCOL_YELLOW"%s",
 		GetPlayerNameEx(playerid),
 		getVIPLevel(playerid),
 		getVIPName(playerid),
-		_acquired,
-		_daysLeft,
+		acquired,
+		(daysLeft > 1 ? daysLeft : hoursLeft > 1 ? hoursLeft : minsLeft),
 		VIPInfo[playerid][e_VIPBaseSpawn] ? ("YES") : ("NO"));
 
-	ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "VIP information", _content, "Close", "");
-	return 1;
+	ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_TABLIST, "VIP information", _content, "Close", "");
+
+	return CMD_SUCCESS;
 }
 
-CMD:viphelp(playerid, params[]) {
+CMD:viphelp(playerid)
+{
 	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
 		
-	switch(getVIPLevel(playerid)){
-
-		case EOVIP_VIPLEVEL_1:{
-
-			ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "[Silver] VIP Help", "Features:\n\n* You can change up to 2 different weather types.", "Close","");
-		}
-		case EOVIP_VIPLEVEL_2:{
-
-			ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "[GOLD] VIP Help", "Features:\n\n* /vipgunpack Gives you 2 weapons.\n\n* You can change up to 3 different weather types.","Close","");
-		}
-		case EOVIP_VIPLEVEL_3:{
-
-			ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "[DIAMOND] VIP Help", "Features:\n\n* Spawn with 40% of Armour.\n\n* /vipgunpack Gives you 3 weapons.\n\n* You can change up to 4 different weather types.\n\n* You choose between 5 skin via /vipskin.","Close","");
-		}
-		case EOVIP_VIPLEVEL_4:{
-
-			ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "[PLATINUM] VIP Help", "Features:\n\n* Spawn with 90% of Armour.\n\n* /vipgunpack Gives you 4 weapons.\n\n* You can change up to 6 different weather types.\n\n* You choose between 10 skin via /vipskin.","Close","");
-		}
+	switch(getVIPLevel(playerid))
+	{
+		case EOVIP_VIPLEVEL_1: ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_LIST, "["EOVIP_VIPNAME_1"] VIP Help", "Features:\n\nYou can change up to 2 different weather types.", "Close","");
+		case EOVIP_VIPLEVEL_2: ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_LIST, "["EOVIP_VIPNAME_2"] VIP Help", "Features:\n\n/vipgunpack Gives you 2 weapons.\n\nYou can change up to 3 different weather types.","Close","");
+		case EOVIP_VIPLEVEL_3: ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_LIST, "["EOVIP_VIPNAME_3"] VIP Help", "Features:\n\nSpawn with 40%% of Armour.\n\n/vipgunpack Gives you 3 weapons.\n\nYou can change up to 4 different weather types.\n\nYou choose between 5 skin via /vipskin.","Close","");
+		case EOVIP_VIPLEVEL_4: ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_LIST, "["EOVIP_VIPNAME_4"] VIP Help", "Features:\n\nSpawn with 80%% of Armour.\n\n/vipgunpack Gives you 4 weapons.\n\nYou can change up to 6 different weather types.\n\nYou choose between 10 skin via /vipskin.","Close","");
 	}
 
-	return 1;
+	return CMD_SUCCESS;
 }
 
-CMD:viptag(playerid) {
-
+CMD:viptag(playerid)
+{
 	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");  
+	
 	if(!isPlayerVIPTagActive(playerid))
 		TogglePlayerVIPTag(playerid, true);
 	else
 		TogglePlayerVIPTag(playerid, false);
 
-	return 1;
+	return CMD_SUCCESS;
 }
 
-CMD:vipgunpack(playerid) {
+CMD:viptoys(playerid)
+{
 	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
-	if(gettime() - VIPInfo[playerid][e_VIPGunPackCoolDown] < 900) SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You have just used that command, please wait for a 15 mins");
-    if(!VIPInfo[playerid][e_VIPGunPackPreset]){
-	    switch(getVIPLevel(playerid)){
+    new _content[350];
+    
+    for(new i; i<MAX_PLAYER_ATTACHED_OBJECTS; i++)
+    	format(_content, sizeof(_content), "%sSlot %i"VIPCOL_WHITE"\t\t\t%s\n" ,_content, i+1, IsPlayerAttachedObjectSlotUsed(playerid, i) ? (""VIPCOL_RED"[USED]") : (""VIPCOL_GREEN"[EMPTY]"));
+    
+    SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP] "VIPCOL_BLUE"Please select a slot to insert/manage toys in!");
+    ShowPlayerDialog(playerid, DIALOG_TOYS, DIALOG_STYLE_LIST, "VIP Toys", _content, "Select", "Cancel");
 
-	        case EOVIP_VIPLEVEL_2:{
+	return CMD_SUCCESS;
+}
+
+CMD:viptime(playerid, params[])
+{
+	new _hour, _minute, str[70];
+	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
+	if(sscanf(params, "ii", _hour, _minute)) return SendClientMessage(playerid, VIPCOLOR_GREEN ,"[USAGE]: /viptime [Hour] [Minute]") && SendClientMessage(playerid, VIPCOLOR_GREEN ,"[FUNCTION]: Change your time");
+	if(_hour > 23 || _hour < 0 || _minute > 59 || _minute < 0) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You have entered an invalid hour/minute value!");
+    
+    SetPlayerTime(playerid, _hour, _minute);
+    format(str, sizeof(str), "[EO_VIP]: You have set your time to "VIPCOL_WHITE"%02d"VIPCOL_ORANGE":"VIPCOL_WHITE"%02d", _hour, _minute);
+    SendClientMessage(playerid, VIPCOLOR_ORANGE, str);
+
+	return CMD_SUCCESS;
+}
+
+CMD:vipbs(playerid)
+{
+    if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
+    	
+    if(!VIPInfo[playerid][e_VIPBaseSpawn])
+    	ShowPlayerDialog(playerid, DIALOG_VIPBASESPAWN, DIALOG_STYLE_MSGBOX, "VIP Base Spawn Option", "Do you want to always spawn in VIP Base?\n\nYou can change this this anytime with "VIPCOL_WHITE"/vipbs", "Yes", "No");
+
+	else
+		ShowPlayerDialog(playerid, DIALOG_VIPBASESPAWN, DIALOG_STYLE_MSGBOX, "VIP Base Spawn Option", "Do you want to disable Spawning in VIP base option?\n\nYou can change this this anytime with "VIPCOL_WHITE"/vipbs", "Yes", "No");
+
+	return CMD_SUCCESS;
+}
+
+CMD:weatherids(playerid)
+{
+	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
+	
+	switch(getVIPLevel(playerid))
+	{
+		case EOVIP_VIPLEVEL_1: ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "Weather IDs", ""VIPCOL_YELLOW"1- "VIPCOL_WHITE"Sunny\n\n"VIPCOL_YELLOW"2- "VIPCOL_WHITE"Extra Sunny Smog", "Close", "");
+		case EOVIP_VIPLEVEL_2: ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "Weather IDs", ""VIPCOL_YELLOW"1- "VIPCOL_WHITE"Sunny\n\n"VIPCOL_YELLOW"2- "VIPCOL_WHITE"Extra Sunny Smog\n\n"VIPCOL_YELLOW"3- "VIPCOL_WHITE"Sunny Smog", "Close", "");
+		case EOVIP_VIPLEVEL_3: ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "Weather IDs", ""VIPCOL_YELLOW"1- "VIPCOL_WHITE"Sunny\n\n"VIPCOL_YELLOW"2- "VIPCOL_WHITE"Extra Sunny Smog\n\n"VIPCOL_YELLOW"3- "VIPCOL_WHITE"Sunny Smog\n\n"VIPCOL_YELLOW"4- "VIPCOL_WHITE"Cloudy", "Close", "");
+		case EOVIP_VIPLEVEL_4: ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "Weather IDs", ""VIPCOL_YELLOW"1- "VIPCOL_WHITE"Sunny\n\n"VIPCOL_YELLOW"2- "VIPCOL_WHITE"Extra Sunny Smog\n\n"VIPCOL_YELLOW"3- "VIPCOL_WHITE"Sunny Smog\n\n"VIPCOL_YELLOW"4- "VIPCOL_WHITE"Cloudy\n\n"VIPCOL_YELLOW"5- "VIPCOL_WHITE"Summer Sun\n\n"VIPCOL_YELLOW"6- "VIPCOL_WHITE"Summer Extra Sunny", "Close", "");
+	}
+
+	return CMD_SUCCESS;
+}
+
+CMD:vipweather(playerid, params[])
+{
+	new wid, str[70];
+	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
+	if(sscanf(params, "i", wid)) return SendClientMessage(playerid, VIPCOLOR_GREEN ,"[USAGE]: /vipweather [Weather ID] - use /weatherids to view available weather IDs") && SendClientMessage(playerid, VIPCOLOR_GREEN ,"[FUNCTION]: Change your weather");
+
+	switch(getVIPLevel(playerid))
+	{
+		case EOVIP_VIPLEVEL_1:
+		{
+			if(wid > 2 || wid < 1) return SendClientMessage(playerid, VIPCOLOR_RED,"[ERROR]: You have entered an invalid weather ID, available Weather IDs are {92979C}[1-2]");
+    		format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"You have set the weather ID to "VIPCOL_WHITE"%i", wid);
+			SendClientMessage(playerid, VIPCOLOR_ORANGE,str);
+			SetPlayerWeather(playerid, wid);
+		}
+
+		case EOVIP_VIPLEVEL_2:
+		{
+			if(wid > 3 || wid < 1) return SendClientMessage(playerid, VIPCOLOR_RED ,"[ERROR]: You have entered an invalid weather ID, available Weather IDs are {92979C}[1-3]");
+	    	format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"You have set the weather ID to "VIPCOL_WHITE"%i", wid);
+			SendClientMessage(playerid, VIPCOLOR_ORANGE ,str);
+			SetPlayerWeather(playerid, wid);
+		}
+
+		case EOVIP_VIPLEVEL_3:
+		{
+			if(wid > 4 || wid < 1) return SendClientMessage(playerid, VIPCOLOR_RED,"[ERROR]: You have entered an invalid weather ID, available Weather IDs are {92979C}[1-4]");
+	    	format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"You have set the weather ID to "VIPCOL_WHITE"%i", wid);
+			SendClientMessage(playerid, VIPCOLOR_ORANGE,str);
+			SetPlayerWeather(playerid, wid);
+		}
+
+		case EOVIP_VIPLEVEL_4:
+		{
+			if(wid > 6 || wid < 1) return SendClientMessage(playerid, VIPCOLOR_RED ,"[ERROR]: You have entered an invalid weather ID, available Weather IDs are {92979C}[1-6]");
+	    	format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"You have set the weather ID to "VIPCOL_WHITE"%i", wid);
+			SendClientMessage(playerid, VIPCOLOR_ORANGE ,str);
+			SetPlayerWeather(playerid, wid);
+
+		}
+	}
+
+	return CMD_SUCCESS;
+}
+
+CMD:vipvehflip(playerid)
+{
+	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
+ 	if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to be in a vehicle to use this command!");
+    new currentveh = GetPlayerVehicleID(playerid), Float:_angle;
+
+    GetVehicleZAngle(currentveh, _angle);
+    SetVehicleZAngle(currentveh, _angle);
+    SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: Your vehicle has been flipped!");
+
+	return CMD_SUCCESS;
+}
+
+//VIP Level 2 Commands
+CMD:vipgunpack(playerid)
+{
+	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
+	if(getVIPLevel(playerid) < 2) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to have VIP level 2 or above to use this command!");
+	if(gettime() - VIPInfo[playerid][e_VIPGunPackCoolDown] < 900) SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You have just used that command, please wait for 15 minutes");
+    
+    if(!VIPInfo[playerid][e_VIPGunPackPreset])
+    {
+	    switch(getVIPLevel(playerid))
+	    {
+	        case EOVIP_VIPLEVEL_2:
+	        {
 	            GivePlayerWeapon(playerid, 22, 50);
 	            GivePlayerWeapon(playerid, 25, 30);
 			}
-	        case EOVIP_VIPLEVEL_3:{
+
+	        case EOVIP_VIPLEVEL_3:
+	        {
 				GivePlayerWeapon(playerid, 4, 1);
 				GivePlayerWeapon(playerid, 24, 10);
 				GivePlayerWeapon(playerid, 27, 50);
 			}
-	        case EOVIP_VIPLEVEL_4:{
+
+	        case EOVIP_VIPLEVEL_4:
+	        {
 				GivePlayerWeapon(playerid, 9, 1);
 				GivePlayerWeapon(playerid, 24, 25);
 				GivePlayerWeapon(playerid, 26, 30);
 				GivePlayerWeapon(playerid, 31, 100);
 	        }
 	    }
+
 	    SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"VIP Weapon pack given");
 		SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"You have loaded the default preset of guns, you can create your customized one via "VIPCOL_WHITE"/vipgppreset");
-
 	}
-	else{
 
+	else
+	{
 	    SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"You have loaded customized preset of guns, you can manage it anytime via "VIPCOL_WHITE"/vipgppreset");
 	    
 	    if(VIPInfo[playerid][e_VIPGPMelee] != -1)
@@ -1023,236 +1196,136 @@ CMD:vipgunpack(playerid) {
 	    	GivePlayerWeapon(playerid, VIPInfo[playerid][e_VIPGPAssault], 100);
 	    if(VIPInfo[playerid][e_VIPGPRifle] != -1)
 	    	GivePlayerWeapon(playerid, VIPInfo[playerid][e_VIPGPRifle], 15);
-
 	}
 
 	VIPInfo[playerid][e_VIPGunPackCoolDown] = gettime();
  
-	return 1;
+	return CMD_SUCCESS;
 }
 
-CMD:viptoys(playerid){
-    
-	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
-    new _content[350];
-    
-    for(new i; i<MAX_PLAYER_ATTACHED_OBJECTS; i++){
-    	format(_content, sizeof(_content), "%sSlot %i"VIPCOL_WHITE"\t\t\t%s\n" ,_content, i+1, IsPlayerAttachedObjectSlotUsed(playerid, i) ? (""VIPCOL_RED"[USED]") : (""VIPCOL_GREEN"[EMPTY]"));
-    }
-    
-    SendClientMessage(playerid, VIPCOLOR_BLUE, "[EO_VIP] "VIPCOL_BLUE"Please select a slot to insert/manage toys in!");
-    ShowPlayerDialog(playerid, DIALOG_TOYS, DIALOG_STYLE_LIST, "VIP Toys", _content, "Select", "Cancel");
-
-	return 1;
-}
-
-CMD:viptime(playerid, params[]){
-	
-	new _hour, _minute, str[70];
-	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
-	if(sscanf(params, "ii", _hour, _minute)){
-	 	SendClientMessage(playerid, VIPCOLOR_GREEN ,"[USAGE]: /viptime [Hour] [Minute]");
-		SendClientMessage(playerid, VIPCOLOR_GREEN ,"[FUNCTION]: Change your time");
-	 	return 1;   
-	}
-	if(_hour > 23 || _hour < 0 || _minute > 59 || _minute < 0) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You have entered an invalid hour/minute value!");
-    
-    format(str, sizeof(str), "[EO_VIP]: You have set your time to "VIPCOL_WHITE"%02d"VIPCOL_ORANGE":"VIPCOL_WHITE"%02d", _hour, _minute);
-    SendClientMessage(playerid, VIPCOLOR_ORANGE, str);
-    SetPlayerTime(playerid, _hour, _minute);
-
-	return 1;
-}
-
-CMD:vipbs(playerid){
-    
-    if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
-    	
-    if(!VIPInfo[playerid][e_VIPBaseSpawn])
-    	ShowPlayerDialog(playerid, DIALOG_VIPBASESPAWN, DIALOG_STYLE_MSGBOX, "VIP Base Spawn Option", "Do you want to always spawn in VIP Base?\n\nYou can change this this anytime with "VIPCOL_WHITE"/vipbs", "Yes", "No");
-
-	else
-		ShowPlayerDialog(playerid, DIALOG_VIPBASESPAWN, DIALOG_STYLE_MSGBOX, "VIP Base Spawn Option", "Do you want to disable Spawning in VIP base option?\n\nYou can change this this anytime with "VIPCOL_WHITE"/vipbs", "Yes", "No");
-
-	return 1;
-}
-
-CMD:weatherids(playerid) {
-	
-	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
-	switch(getVIPLevel(playerid)){
-
-		case EOVIP_VIPLEVEL_1: ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "Weather IDs", ""VIPCOL_YELLOW"1- "VIPCOL_WHITE"Sunny\n\n"VIPCOL_YELLOW"2- "VIPCOL_WHITE"Extra Sunny Smog", "Close", "");
-		case EOVIP_VIPLEVEL_2: ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "Weather IDs", ""VIPCOL_YELLOW"1- "VIPCOL_WHITE"Sunny\n\n"VIPCOL_YELLOW"2- "VIPCOL_WHITE"Extra Sunny Smog\n\n"VIPCOL_YELLOW"3- "VIPCOL_WHITE"Sunny Smog", "Close", "");
-		case EOVIP_VIPLEVEL_3: ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "Weather IDs", ""VIPCOL_YELLOW"1- "VIPCOL_WHITE"Sunny\n\n"VIPCOL_YELLOW"2- "VIPCOL_WHITE"Extra Sunny Smog\n\n"VIPCOL_YELLOW"3- "VIPCOL_WHITE"Sunny Smog\n\n"VIPCOL_YELLOW"4- "VIPCOL_WHITE"Cloudy", "Close", "");
-		case EOVIP_VIPLEVEL_4: ShowPlayerDialog(playerid, DIALOG_MSG, DIALOG_STYLE_MSGBOX, "Weather IDs", ""VIPCOL_YELLOW"1- "VIPCOL_WHITE"Sunny\n\n"VIPCOL_YELLOW"2- "VIPCOL_WHITE"Extra Sunny Smog\n\n"VIPCOL_YELLOW"3- "VIPCOL_WHITE"Sunny Smog\n\n"VIPCOL_YELLOW"4- "VIPCOL_WHITE"Cloudy\n\n"VIPCOL_YELLOW"5- "VIPCOL_WHITE"Summer Sun\n\n"VIPCOL_YELLOW"6- "VIPCOL_WHITE"Summer Extra Sunny", "Close", "");
-	}
-
-	return 1;
-}
-
-CMD:vipweather(playerid, params[]) {
-
-	new wid, str[65];
-	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
-	if(sscanf(params, "i", wid)){
-		SendClientMessage(playerid, VIPCOLOR_GREEN ,"[USAGE]: /vipweather [Weather ID] - use /weatherids to view available weather IDs");
-		SendClientMessage(playerid, VIPCOLOR_GREEN ,"[FUNCTION]: Change your weather");
-		return 1;
-	}
-	switch(getVIPLevel(playerid)){
-		case EOVIP_VIPLEVEL_1:{
-			if(wid > 2 || wid < 1) return SendClientMessage(playerid, VIPCOLOR_RED,"[ERROR]: You have entered an invalid weather ID, available Weather IDs are {92979C}[1-2]");
-    		format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"You have set the weather ID to "VIPCOL_WHITE"%i", wid);
-			SendClientMessage(playerid, VIPCOLOR_ORANGE,str);
-			SetPlayerWeather(playerid, wid);
-		}
-		case EOVIP_VIPLEVEL_2:{
-			if(wid > 3 || wid < 1) return SendClientMessage(playerid, VIPCOLOR_RED ,"[ERROR]: You have entered an invalid weather ID, available Weather IDs are {92979C}[1-3]");
-	    	format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"You have set the weather ID to "VIPCOL_WHITE"%i", wid);
-			SendClientMessage(playerid, VIPCOLOR_ORANGE ,str);
-			SetPlayerWeather(playerid, wid);
-		}
-		case EOVIP_VIPLEVEL_3:{
-			if(wid > 4 || wid < 1) return SendClientMessage(playerid, VIPCOLOR_RED,"[ERROR]: You have entered an invalid weather ID, available Weather IDs are {92979C}[1-4]");
-	    	format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"You have set the weather ID to "VIPCOL_WHITE"%i", wid);
-			SendClientMessage(playerid, VIPCOLOR_ORANGE,str);
-			SetPlayerWeather(playerid, wid);
-		}
-		case EOVIP_VIPLEVEL_4:{
-			if(wid > 6 || wid < 1) return SendClientMessage(playerid, VIPCOLOR_RED ,"[ERROR]: You have entered an invalid weather ID, available Weather IDs are {92979C}[1-6]");
-	    	format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"You have set the weather ID to "VIPCOL_WHITE"%i", wid);
-			SendClientMessage(playerid, VIPCOLOR_ORANGE ,str);
-			SetPlayerWeather(playerid, wid);
-
-		}
-	}
-
-	return 1;
-}
-
-CMD:vipvehflip(playerid) {
-	
-	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
- 	if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to be in a vehicle to use this command!");
-    
-    new currentveh = GetPlayerVehicleID(playerid), Float:_angle;
-    GetVehicleZAngle(currentveh, _angle);
-    SetVehicleZAngle(currentveh, _angle);
-    SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: Your vehicle has been flipped!");
-
-	return 1;
-}
-
-//VIP Level 2 Commands
-CMD:changevehcolor(playerid, params[]) {
-	
+CMD:changevehcolor(playerid, params[])
+{
 	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
 	if(getVIPLevel(playerid) < 2) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to have VIP level 2 or above to use this command!");
     new str[128], color1, color2;
-    if(sscanf(params, "ii", color1, color2)){
-    	SendClientMessage(playerid, VIPCOLOR_GREEN, "[USAGE]: /changevehcolor [color 1] [color 2]");
-    	SendClientMessage(playerid, VIPCOLOR_GREEN, "[FUNCTION]: Change a vehicle's color");
-    	return 1;
-    }
+    if(sscanf(params, "ii", color1, color2)) return SendClientMessage(playerid, VIPCOLOR_GREEN, "[USAGE]: /changevehcolor [color 1] [color 2]") && SendClientMessage(playerid, VIPCOLOR_GREEN, "[FUNCTION]: Change a vehicle's color");
     if(color1 > 255 || color1 < 0 || color2 > 255 || color2 < 0) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You have entered an invalid Color ID!");
     if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to be in a vehicle to use this command!");
 	
-    switch(getVIPLevel(playerid)){
+    switch(getVIPLevel(playerid))
+    {
+    	case EOVIP_VIPLEVEL_2:
+    	{
+    		if(GetPlayerMoney(playerid) < EOVIP_CCOLOR_FEE_2) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford changing this vehicle's color");
+		    GivePlayerMoney(playerid, -EOVIP_CCOLOR_FEE_2);
+		    format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"Vehicle color changed to ( "VIPCOL_YELLOW"%i "VIPCOL_WHITE", "VIPCOL_YELLOW"%i "VIPCOL_WHITE"), you've been charged with "VIPCOL_YELLOW"$"#EOVIP_CCOLOR_FEE_2"", color1, color2);
+			SendClientMessage(playerid, VIPCOLOR_ORANGE, str);
+			ChangeVehicleColor(GetPlayerVehicleID(playerid), color1, color2);
+    	}
 
-    	case EOVIP_VIPLEVEL_2:{
-    		if(GetPlayerMoney(playerid) < 1000) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford changing this vehicle's color");
-		    GivePlayerMoney(playerid, -1000);
-		    format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"Vehicle color changed to ( "VIPCOL_YELLOW"%i "VIPCOL_WHITE", "VIPCOL_YELLOW"%i "VIPCOL_WHITE"), you've been charged with "VIPCOL_YELLOW"$1000", color1, color2);
+    	case EOVIP_VIPLEVEL_3:
+    	{
+    		if(GetPlayerMoney(playerid) < EOVIP_CCOLOR_FEE_3) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford changing this vehicle's color");
+		    GivePlayerMoney(playerid, -EOVIP_CCOLOR_FEE_3);
+		    format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"Vehicle color changed to ( "VIPCOL_YELLOW"%i "VIPCOL_WHITE", "VIPCOL_YELLOW"%i "VIPCOL_WHITE"), you've been charged with "VIPCOL_YELLOW"$"#EOVIP_CCOLOR_FEE_3"", color1, color2);
 			SendClientMessage(playerid, VIPCOLOR_ORANGE, str);
 			ChangeVehicleColor(GetPlayerVehicleID(playerid), color1, color2);
     	}
-    	case EOVIP_VIPLEVEL_3:{
-    		if(GetPlayerMoney(playerid) < 500) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford changing this vehicle's color");
-		    GivePlayerMoney(playerid, -500);
-		    format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"Vehicle color changed to ( "VIPCOL_YELLOW"%i "VIPCOL_WHITE", "VIPCOL_YELLOW"%i "VIPCOL_WHITE"), you've been charged with "VIPCOL_YELLOW"$500", color1, color2);
-			SendClientMessage(playerid, VIPCOLOR_ORANGE, str);
-			ChangeVehicleColor(GetPlayerVehicleID(playerid), color1, color2);
-    	}
-    	case EOVIP_VIPLEVEL_4:{
-    		if(GetPlayerMoney(playerid) < 250) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford changing this vehicle's color");
-		    GivePlayerMoney(playerid, -250);
-		    format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"Vehicle color changed to ( "VIPCOL_YELLOW"%i "VIPCOL_WHITE", "VIPCOL_YELLOW"%i "VIPCOL_WHITE"), you've been charged with "VIPCOL_YELLOW"$250", color1, color2);
+
+    	case EOVIP_VIPLEVEL_4:
+    	{
+    		if(GetPlayerMoney(playerid) < EOVIP_CCOLOR_FEE_4) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford changing this vehicle's color");
+		    GivePlayerMoney(playerid, -EOVIP_CCOLOR_FEE_4);
+		    format(str, sizeof(str), "[EO_VIP]: "VIPCOL_YELLOW"Vehicle color changed to ( "VIPCOL_YELLOW"%i "VIPCOL_WHITE", "VIPCOL_YELLOW"%i "VIPCOL_WHITE"), you've been charged with "VIPCOL_YELLOW"$"#EOVIP_CCOLOR_FEE_4"", color1, color2);
 			SendClientMessage(playerid, VIPCOLOR_ORANGE, str);
 			ChangeVehicleColor(GetPlayerVehicleID(playerid), color1, color2);
     	}
     }
 
-	return 1;
+	return CMD_SUCCESS;
 }
 
-CMD:vipnos(playerid) {
+CMD:vipnos(playerid)
+{
 	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
     if(getVIPLevel(playerid) < 2) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to have VIP level 2 or above to use this command!");
 	if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to be in a vehicle to use this command!");  
     
-    switch(getVIPLevel(playerid)){
-		case EOVIP_VIPLEVEL_2:{
-		    if(GetPlayerMoney(playerid) < 1000) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford to buy this");
-		    GivePlayerMoney(playerid, -1000);
-      		SendClientMessage(playerid, VIPCOLOR_ORANGE, "[ERROR]: "VIPCOL_YELLOW"You have added nitrous to this vehicle, you've been charged with "VIPCOL_WHITE"$1000");
+    switch(getVIPLevel(playerid))
+    {
+		case EOVIP_VIPLEVEL_2:
+		{
+		    if(GetPlayerMoney(playerid) < EOVIP_CNOS_FEE_2) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford to buy this");
+		    GivePlayerMoney(playerid, -EOVIP_CNOS_FEE_2);
+      		SendClientMessage(playerid, VIPCOLOR_ORANGE, "[ERROR]: "VIPCOL_YELLOW"You have added nitrous to this vehicle, you've been charged with "VIPCOL_WHITE"$"#EOVIP_CNOS_FEE_2"");
 		}
-        case EOVIP_VIPLEVEL_3:{
-            if(GetPlayerMoney(playerid) < 500) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford to buy this");
-			GivePlayerMoney(playerid, -500);
-	        SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"You have added nitrous to this vehicle, you've been charged with "VIPCOL_WHITE"$500");
+
+        case EOVIP_VIPLEVEL_3:
+        {
+            if(GetPlayerMoney(playerid) < EOVIP_CNOS_FEE_3) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford to buy this");
+			GivePlayerMoney(playerid, -EOVIP_CNOS_FEE_3);
+	        SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"You have added nitrous to this vehicle, you've been charged with "VIPCOL_WHITE"$"#EOVIP_CNOS_FEE_3"");
 		}
-        case EOVIP_VIPLEVEL_4:{
-            if(GetPlayerMoney(playerid) < 150) return  SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford to buy this");
-			GivePlayerMoney(playerid, -150);
-            SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"You have added nitrous to this vehicle, you've been charged with "VIPCOL_WHITE"$150");
+
+        case EOVIP_VIPLEVEL_4:
+        {
+            if(GetPlayerMoney(playerid) < EOVIP_CNOS_FEE_4) return  SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford to buy this");
+			GivePlayerMoney(playerid, -EOVIP_CNOS_FEE_4);
+            SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"You have added nitrous to this vehicle, you've been charged with "VIPCOL_WHITE"$"#EOVIP_CNOS_FEE_4"");
 		}
     }
+
     AddVehicleComponent(GetPlayerVehicleID(playerid), 1010);
 	PlayerPlaySound(playerid, 1133, 0.0, 0.0, 10.0);
-	return 1;
+
+	return CMD_SUCCESS;
 }
 
-CMD:vipenginefix(playerid){
-
+CMD:vipenginefix(playerid)
+{
 	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
     if(getVIPLevel(playerid) < 2) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to have VIP level 2 or above to use this command!");
 	if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to be in a vehicle to use this command!");  
     
-    switch(getVIPLevel(playerid)){
-		case EOVIP_VIPLEVEL_3:{
-        	if(GetPlayerMoney(playerid) < 600)
-            GivePlayerMoney(playerid, -600);
-            SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"vehicle fixed, you've been charged with "VIPCOL_WHITE"$600");
+    switch(getVIPLevel(playerid))
+    {
+		case EOVIP_VIPLEVEL_3:
+		{
+        	if(GetPlayerMoney(playerid) < EOVIP_CEFIX_FEE_3)
+            GivePlayerMoney(playerid, -EOVIP_CEFIX_FEE_3);
+            SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"vehicle fixed, you've been charged with "VIPCOL_WHITE"$"#EOVIP_CEFIX_FEE_3"");
         }
-        case EOVIP_VIPLEVEL_4:{
-            if(GetPlayerMoney(playerid) < 150)
-            GivePlayerMoney(playerid, -150);
-            SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"vehicle fixed, you've been charged with "VIPCOL_WHITE"$150");
+
+        case EOVIP_VIPLEVEL_4:
+        {
+            if(GetPlayerMoney(playerid) < EOVIP_CEFIX_FEE_4)
+            GivePlayerMoney(playerid, -EOVIP_CEFIX_FEE_4);
+            SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"vehicle fixed, you've been charged with "VIPCOL_WHITE"$"#EOVIP_CEFIX_FEE_4"");
         }
     }
+
     SetVehicleHealth(GetPlayerVehicleID(playerid), 1000);
 
-	return 1;
+	return CMD_SUCCESS;
 }
 
-CMD:vipbodyfix(playerid) {
-	
+CMD:vipbodyfix(playerid)
+{
 	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
     if(getVIPLevel(playerid) < 2) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to have VIP level 2 or above to use this command!");
 	if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to be in a vehicle to use this command!");
-    if(GetPlayerMoney(playerid) < 450) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford this!");
+    if(GetPlayerMoney(playerid) < EOVIP_CBFIX_FEE) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You can't afford this!");
 
     RepairVehicle(GetPlayerVehicleID(playerid));
- 	GivePlayerMoney(playerid, -450);
-	SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"vehicle fixed, you've been charged with "VIPCOL_WHITE"$200");
+ 	GivePlayerMoney(playerid, -EOVIP_CBFIX_FEE);
+	SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: "VIPCOL_YELLOW"vehicle fixed, you've been charged with "VIPCOL_WHITE"$"#EOVIP_CBFIX_FEE"");
 	PlayerPlaySound(playerid, 1133, 0.0, 0.0, 10.0);
 
-	return 1;
+	return CMD_SUCCESS;
 }
 
-CMD:vipbasetp(playerid) {
-	
+CMD:vipbasetp(playerid)
+{
 	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
 	if(getVIPLevel(playerid) < 2) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to have VIP level 2 or above to use this command!");
 	if(gettime() - VIPInfo[playerid][e_VIPBaseTeleportCoolDown] < 600) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You cannot use this command now, wait for 10 minutes!");
@@ -1265,35 +1338,39 @@ CMD:vipbasetp(playerid) {
 	SendClientMessage(playerid, VIPCOLOR_ORANGE, "[EO_VIP]: You have been temporarily frozen, please wait for the environment to lead!");
 	defer VIPBaseTeleportTimer(playerid);
 
-	return 1;
+	return CMD_SUCCESS;
 }
 
 //VIP Level 3 Commands
-CMD:vipgppreset(playerid){
-	
+CMD:vipgppreset(playerid)
+{
 	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
 	if(getVIPLevel(playerid) < 3) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to have VIP level 3 or above to use this command!");
     
     if(!VIPInfo[playerid][e_VIPGunPackPreset])
     	ShowPlayerDialog(playerid, DIALOG_VIPGPPRESETCREATE, DIALOG_STYLE_MSGBOX, "VIP GunPack Preset Option", "Here you can make a new Gunpack set to spawn via "VIPCOL_WHITE"/vipgppreset\n\n"VIPCOL_YELLOW"You Don't have a GunPack Preset yet, do you want to create one?", "Yes", "No");
-	else{
+	
+	else
+	{
 	    ShowPlayerDialog(playerid, DIALOG_VIPGPPRESETEDIT, DIALOG_STYLE_LIST, "VIP GunPack Preset Option",
 		"Edit Gunpack Preset\n\
 		Delete Gunpack Preset\n",
 		"Select", "Cancel");
 	}
 
-	return 1;
+	return CMD_SUCCESS;
 }
 
-CMD:vipskin(playerid) {
-
+CMD:vipskin(playerid)
+{
 	if(!isPlayerVIP(playerid)) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You are not a VIP, you cannot use this command!");
 	if(getVIPLevel(playerid) < 3) return SendClientMessage(playerid, VIPCOLOR_RED, "[ERROR]: You need to have VIP level 3 or above to use this command!");
-	switch(getVIPLevel(playerid)){
-
-		case EOVIP_VIPLEVEL_3:{
-			ShowPlayerDialog(playerid, DIALOG_VIPSKINS, DIALOG_STYLE_LIST, "VIP SKINS SELECTION "VIPCOL_YELLOW"[DIAMOND]",
+	
+	switch(getVIPLevel(playerid))
+	{
+		case EOVIP_VIPLEVEL_3:
+		{
+			ShowPlayerDialog(playerid, DIALOG_VIPSKINS, DIALOG_STYLE_LIST, "VIP SKINS SELECTION "VIPCOL_YELLOW"["EOVIP_VIPNAME_3"]",
 			"Maccer\n\
 			Andre\n\
 			Rich Woman\n\
@@ -1301,8 +1378,10 @@ CMD:vipskin(playerid) {
 			Stunner\n",
 			"Select", "Cancel");
 		}
-		case EOVIP_VIPLEVEL_4:{
-			ShowPlayerDialog(playerid, DIALOG_VIPSKINS, DIALOG_STYLE_LIST, "VIP SKINS SELECTION "VIPCOL_YELLOW"[PLATINUM]",
+
+		case EOVIP_VIPLEVEL_4:
+		{
+			ShowPlayerDialog(playerid, DIALOG_VIPSKINS, DIALOG_STYLE_LIST, "VIP SKINS SELECTION "VIPCOL_YELLOW"["EOVIP_VIPNAME_4"]",
 			"Maccer\n\
 			Andre\n\
 			Rich Woman\n\
@@ -1317,7 +1396,7 @@ CMD:vipskin(playerid) {
 		}
 	}
 
-	return 1;
+	return CMD_SUCCESS;
 }
 
 //VIP Level 4 Commands
