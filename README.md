@@ -10,6 +10,7 @@ This is a VIP based system filerscript, which would focus on granting you an ide
 - **2** put **eovip.inc** inside of *pawno/include* folder.
 - **3** open the EOVIP.pwn with your text editor and compile it.
 - **4** go to your **server.cfg** and add : `EOVIP` on *filterscripts* line.
+- **5** open up **database.sql** and execute the code to create a database with the `VIPs` table.
 
 ## Credits
 > a_samp		      by **SA_MP team**
@@ -30,6 +31,7 @@ This is a VIP based system filerscript, which would focus on granting you an ide
 - [X] VIP Expiration is even more solid.
 - [X] Code optimization.
 - [X] More control over the filterscript.
+- [X] Detailed information on /vipaccount.
 
 ## Update Log
 ```
